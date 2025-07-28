@@ -5,6 +5,8 @@ import numpy as np               # For numeric operations (used implicitly via p
 from datetime import datetime    # For handling date parsing
 from matplotlib.colors import to_rgba
 
+DATA_DIR = "data"
+
 color_palette = {
     "Warm Orange": "#f28d3c",
     "Golden Yellow": "#f3c03e",
@@ -49,7 +51,7 @@ def show_color():
 def bluecoats_season_trend():
 
     # Re-load and preprocess
-    df = pd.read_csv("bluecoats_shows.csv")
+    df = pd.read_csv(f"{DATA_DIR}/bluecoats_shows.csv")
     df['Show Date'] = pd.to_datetime(df['Show Date'])
     df['Year'] = df['Show Date'].dt.year
     df['Total'] = pd.to_numeric(df['Total'], errors='coerce')
@@ -124,7 +126,7 @@ def bluecoats_season_trend_highlight_drops():
         2019: "#ed5186",  # Deep Teal
     }
 
-    df = pd.read_csv("bluecoats_shows.csv")
+    df = pd.read_csv(f"{DATA_DIR}/bluecoats_shows.csv")
     df['Show Date'] = pd.to_datetime(df['Show Date'])
     df['Year'] = df['Show Date'].dt.year
     df['Total'] = pd.to_numeric(df['Total'], errors='coerce')
@@ -182,7 +184,7 @@ def bluecoats_season_trend_highlight_improvements():
         2019: "#ed5186",  # Rosy Pink
     }
 
-    df = pd.read_csv("bluecoats_shows.csv")
+    df = pd.read_csv(f"{DATA_DIR}/bluecoats_shows.csv")
     df['Show Date'] = pd.to_datetime(df['Show Date'])
     df['Year'] = df['Show Date'].dt.year
     df['Total'] = pd.to_numeric(df['Total'], errors='coerce')
@@ -233,7 +235,7 @@ def bluecoats_champ_seasons_plot():
         2016: "#f28d3c",  # Warm Orange
     }
 
-    df = pd.read_csv("bluecoats_shows.csv")
+    df = pd.read_csv(f"{DATA_DIR}/bluecoats_shows.csv")
     df['Show Date'] = pd.to_datetime(df['Show Date'])
     df['Year'] = df['Show Date'].dt.year
     df['Total'] = pd.to_numeric(df['Total'], errors='coerce')
@@ -279,7 +281,7 @@ def bluecoats_caption_score_trend():
     }
 
     # Load and prep data
-    df = pd.read_csv("bluecoats_shows.csv")
+    df = pd.read_csv(f"{DATA_DIR}/bluecoats_shows.csv")
     df['Show Date'] = pd.to_datetime(df['Show Date'])
     df['Year'] = df['Show Date'].dt.year
     df['Month-Day'] = df['Show Date'].apply(lambda d: datetime(2000, d.month, d.day))
@@ -350,7 +352,7 @@ def bluecoats_caption_score_trend():
 
 
 def crossmen_season_trend():
-    file_path = 'score_by_show&corp.csv'
+    file_path = f"{DATA_DIR}/score_by_show&corp.csv"
     df = pd.read_csv(file_path)
 
     # Clean and filter the data for Crossmen in 2022

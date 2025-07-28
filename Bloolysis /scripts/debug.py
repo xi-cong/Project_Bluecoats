@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 from IPython.display import display
 
 
-
+DATA_DIR = "data"
 
 def debug1():
     url_show = "https://www.dci.org/scores/recap/2019-dci-world-championship-finals/"
@@ -262,7 +262,7 @@ def debug3():
     print(f"{error_count} shows missing")
 
     df = pd.DataFrame(list_outputs, columns=columns)
-    df.to_csv("score_by_show&corp.csv", index=False)
+    df.to_csv(f"{DATA_DIR}/score_by_show&corp.csv", index=False)
     display(df.head())
 
 # debug3()
@@ -271,6 +271,6 @@ def clean1():
     df = pd.read_csv("all_shows_score_recap.csv")
     df = df.dropna(axis=1, how='all')
     print(df)
-    df.to_csv("all_shows_score_recap.csv", index=False, header=False)
+    df.to_csv(f"{DATA_DIR}/all_shows_score_recap.csv", index=False, header=False)
 
 # clean1()

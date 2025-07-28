@@ -11,6 +11,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from IPython.display import display
 
+DATA_DIR = "data"
+
 # this function scarpes all urls for shows since 2013 and writes them into a csv file 
 # only needs to be run when new shows are updated
 def scrape_dci_recaps_selenium():
@@ -48,7 +50,7 @@ def scrape_dci_recaps_selenium():
     print(f"fetched {len(all_shows)} shows")
     # Save to CSV
     df = pd.DataFrame(all_shows)
-    df.to_csv("all_shows_url.csv", index=False, header=['url'])
+    df.to_csv(f"{DATA_DIR}/all_shows_url.csv", index=False, header=['url'])
     print("✅ Done! Recap URLs saved to all_shows_url.csv")
     return all_shows
 # write "all_shows_url.csv"
@@ -135,7 +137,7 @@ def extrat_valid_cells(url_show):
 def build_show_score_list():
     # df_all_shows = pd.read_csv("all_shows_url.csv")
     # url_little_rock = df_all_shows["2025"][3]
-    with open("all_shows_url.csv") as file:
+    with open(f"{DATA_DIR}/all_shows_url.csv") as file:
         reader  = csv.reader(file)
         list_all_shows = list(reader)[1:]
 
@@ -176,25 +178,25 @@ def build_show_score_list():
     df_error2 = pd.DataFrame(list_error_show_scores)
     # print(df.head())
     # print(len(list_all_show_scores))
-    df.to_csv("all_shows_score_recap.csv", index=False, header=False)
+    df.to_csv(f"{DATA_DIR}/all_shows_score_recap.csv", index=False, header=False)
     # df_error2.to_csv("all_error_score_recap.csv", index=False)
 # write "all_shows_score_recap.csv"
 
 # build_show_score_dict()
 
 def clean_csv():
-    df = pd.read_csv("all_shows_score_recap.csv")
+    df = pd.read_csv(f"{DATA_DIR}/all_shows_score_recap.csv")
     # df = df.drop(df.columns[0], axis=1)
     df.columns = ["Date", "Location", "Corp", "Score Recap"]
-    df.to_csv("all_shows_score_recap.csv", index=False)
+    df.to_csv(f"{DATA_DIR}/all_shows_score_recap.csv", index=False)
 
 # clean_csv()
 
 def find_error_shows():
-    df = pd.read_csv("all_shows_score_recap.csv")
+    df = pd.read_csv(f"{DATA_DIR}/all_shows_score_recap.csv")
     error_rows = df[df["Corp"].astype(str).str.match(r"^\d")]
     print(error_rows)
-    error_rows.to_csv("error shows.csv")
+    error_rows.to_csv(f"{DATA_DIR}/error shows.csv")
 
 # find_error_shows()
 
@@ -211,7 +213,7 @@ def build_show_cols(list_show_scores):
 # This function write the corp from shows to individual corp score recap in each show 
 # This function write the df into score by show&corp csv 
 def build_show_score_df():
-    with open("all_shows_score_recap.csv") as rfile:
+    with open(f"{DATA_DIR}/all_shows_score_recap.csv") as rfile:
         reader = csv.reader(rfile)
         all_scores = list(reader)[1:]
     
@@ -302,20 +304,20 @@ def build_show_score_df():
     print(f"{error_count} corp score missing")
 
     df = pd.DataFrame(list_outputs, columns=columns)
-    df.to_csv("score_by_show&corp.csv", index=False)
+    df.to_csv(f"{DATA_DIR}/score_by_show&corp.csv", index=False)
     display(df.head())
 # write "score_by_show&corp.csv"
 
 def find_bluecoats():
-    df_og = pd.read_csv("score_by_show.csv")
+    df_og = pd.read_csv(f"{DATA_DIR}/score_by_show.csv")
     bluecoats_df = df_og[df_og["Corp Name"] == "Bluecoats"]
-    bluecoats_df.to_csv("bluecoats_shows.csv")
+    bluecoats_df.to_csv(f"{DATA_DIR}/bluecoats_shows.csv")
 
 # Update lastest game 
 def find_lastest_shows_links():
     print("🔄 running find_lastest_show_links")
 
-    with open("all_shows_url.csv") as fin:
+    with open(f"{DATA_DIR}/all_shows_url.csv") as fin:
         list_all_shows_url = fin.readlines()
 
     options = Options()
@@ -352,19 +354,19 @@ def find_lastest_shows_links():
                     if len(lastest_links) > 0:
                         # update url csv
                         try:
-                            df_original= pd.read_csv("all_shows_url.csv")
+                            df_original= pd.read_csv(f"{DATA_DIR}/all_shows_url.csv")
                             urls = df_original["url"].tolist()
                             urls = lastest_links + urls
                             df_new = pd.DataFrame(urls, columns=["url"])
-                            df_new.to_csv("all_shows_url.csv", index=False)
+                            df_new.to_csv(f"{DATA_DIR}/all_shows_url.csv", index=False)
 
                             return lastest_links
                         except:
-                            df_original= pd.read_csv("all_shows_url.csv")
+                            df_original= pd.read_csv(f"{DATA_DIR}/all_shows_url.csv")
                             urls = df_original["0"].tolist()
                             urls = lastest_links + urls
                             df_new = pd.DataFrame(urls, columns=["url"])
-                            df_new.to_csv("all_shows_url.csv", index=False)
+                            df_new.to_csv(f"{DATA_DIR}/all_shows_url.csv", index=False)
 
                             return lastest_links
                         
@@ -379,7 +381,7 @@ def find_lastest_shows_links():
 
     # Save to CSV
     df = pd.DataFrame(dict([(k, pd.Series(v)) for k, v in all_shows.items()]))
-    df.to_csv("all_shows_url.csv", index=False)
+    df.to_csv(f"{DATA_DIR}/all_shows_url.csv", index=False)
     print("✅ Done! Recap URLs saved to all_shows_url.csv")
     return all_shows
 
@@ -423,12 +425,12 @@ def build_lastest_show_score_list():
                 print(f"🚫error 2: something went wrong at {show_location} on {show_time}: {url_show}")
             
 
-    with open("all_shows_score_recap.csv", newline='') as f:
+    with open(f"{DATA_DIR}/all_shows_score_recap.csv", newline='') as f:
         reader = csv.reader(f)
         old_rows = list(reader)
     list_all_show_scores = list_all_show_scores + old_rows
     df_new = pd.DataFrame(list_all_show_scores)
-    df_new.to_csv("all_shows_score_recap.csv", index=False, header=False)
+    df_new.to_csv(f"{DATA_DIR}/all_shows_score_recap.csv", index=False, header=False)
     print(f"✅ updated score_recap.csv")
 
     print("🥂🥂🥂 all done!!!")
@@ -526,12 +528,12 @@ def build_lastest_show_score_df():
     
     print(f"🚨 {error_count} corp score missing")
 
-    df = pd.read_csv("score_by_show&corp.csv")
+    df = pd.read_csv(f"{DATA_DIR}/score_by_show&corp.csv")
     new_df = pd.DataFrame(list_outputs, columns=df.columns)
 
     # Prepend to the existing df
     df = pd.concat([new_df, df], ignore_index=True)
-    df.to_csv("score_by_show.csv", index=False)
+    df.to_csv(f"{DATA_DIR}/score_by_show.csv", index=False)
 
 # build_lastest_show_score_df()
 
