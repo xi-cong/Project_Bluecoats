@@ -270,7 +270,6 @@ def bluecoats_champ_seasons_plot():
     plt.tight_layout()
     plt.show()
 
-
 def bluecoats_caption_score_trend():
 
     color_palette = {
