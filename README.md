@@ -13,11 +13,11 @@ A concise one-liner describing its purpose, e.g. “A real-time web dashboard fo
 Project_Bluecoats/  
 │  
 │   ├── Bloolysis/      # Project Main Files      
-│       ├── data/       # Scraped Data  
-│       ├── other/      # Relevant files  
-│       ├── report/     # html. pdf. export  
-│       ├── script/     # Python Scripts   
-│       └── notebook/   # Notebooks and Sample Reports             
+│         ├── data/       # Scraped Data  
+│         ├── other/      # Relevant files  
+│         ├── report/     # html. pdf. export  
+│         ├── script/     # Python Scripts   
+│         └── notebook/   # Notebooks and Sample Reports             
 └── README.md                 # You are here  
 
 
