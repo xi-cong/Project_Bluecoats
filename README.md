@@ -1,7 +1,8 @@
 # 🟦 Project Bluecoats
 A concise one-liner describing its purpose, e.g. “A real-time web dashboard for monitoring marching band color guard routines”
 
-### [Sample Report] (Bloolysis /bloolysis.ipynb)
+### Sampel Report 
+[Open Bluecoats Website](https://bluecoats.com)
 
 
 ## 🚀 Features
