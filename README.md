@@ -10,15 +10,16 @@ A concise one-liner describing its purpose, e.g. “A real-time web dashboard fo
 
 ## 📂 Project Structure
 
-Project_Bluecoats/  
-│  
-│   ├── Bloolysis/      # Project Main Files      
-│         ├── data/       # Scraped Data  
-│         ├── other/      # Relevant files  
-│         ├── report/     # html. pdf. export  
-│         ├── script/     # Python Scripts   
-│         └── notebook/   # Notebooks and Sample Reports             
-└── README.md                 # You are here  
+Project_Bluecoats/
+│
+├── Bloolysis/ # 🧠 Core project files
+│ ├── data/ # 📊 Scraped datasets
+│ ├── other/ # 📎 Reference materials / support files
+│ ├── report/ # 📄 HTML and PDF exports
+│ ├── script/ # 🐍 Python scripts for processing
+│ └── notebook/ # 📓 Jupyter notebooks and prototypes
+│
+└── README.md # 🗂 Project overview (you are here)
 
 
 ## 📌 To-Do / Future Roadmap
