@@ -1,5 +1,6 @@
 # 🟦 Project Bluecoats
-A concise one-liner describing its purpose, e.g. “A real-time web dashboard for monitoring marching band color guard routines”
+This notebook visualizes the performance progression of the Bluecoats Drum Corps across selected seasons, using caption-level DCI scoring data.
+The report aims to identify scoring patterns, highlight major performance shifts, and compare caption scores (General Effect, Visual, and Music) across the seasons. 📊 Data Source  
 
 ### Sampel Report 
 [Click Here](https://github.com/xi-cong/Project_Bluecoats/blob/fd5716418de3dca93d48dfedf9ec7b0c1a51d869/Bloolysis%20/bloolysis.ipynb)
