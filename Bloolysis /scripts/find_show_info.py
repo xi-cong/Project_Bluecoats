@@ -335,10 +335,12 @@ def find_lastest_shows_links():
     for year in years:
         print(f"🔍 Scraping year {year}")
         all_shows[year] = []
+        combined_recap_links = []
         for page in range(1, 12):
             print(f"  → Page {page}", end="... ")
             url = base_url.format(year, page)
             driver.get(url)
+            # print(url)
             time.sleep(1.5)  # Give JavaScript time to load
 
             links = driver.find_elements(By.CSS_SELECTOR, 'a.arrow-btn')
@@ -347,10 +349,13 @@ def find_lastest_shows_links():
                 break
 
             recap_links = [link.get_attribute('href').replace("final-scores", "recap") for link in links] #type:ignore
+            print(recap_links)
+            combined_recap_links += recap_links
             lastest_links = []
-            for i, link in enumerate(recap_links): 
+            print(combined_recap_links)
+            for i, link in enumerate(combined_recap_links): 
                 if link.strip().rstrip('/') == list_all_shows_url[1].strip().rstrip('/'):
-                    lastest_links = recap_links[:i]
+                    lastest_links = combined_recap_links[:i]
                     if len(lastest_links) > 0:
                         # update url csv
                         try:
@@ -519,11 +524,11 @@ def build_lastest_show_score_df():
                 output = list(skeleton_list) + list(corp_output)
                 # print(output)
                 if len(output) != len(columns):
-                    print(f"⚠️ Skipping {corp} on {skeleton_list[0]}, {skeleton_list[1]} — {len(output)} values vs {len(columns)} columns")
+                    # print(f"⚠️ Skipping {corp} on {skeleton_list[0]}, {skeleton_list[1]} — {len(output)} values vs {len(columns)} columns")
                     continue 
                 list_outputs.append(output)
             except:
-                print(skeleton_list+[corp_name])
+                # print(skeleton_list+[corp_name])
                 error_count += 1
     
     print(f"🚨 {error_count} corp score missing")
